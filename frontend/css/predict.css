@@ -1,0 +1,1469 @@
+
+/* =========================================================
+   NAVUKOUKA — Prediction page
+   Базовые стили берутся из train.css.
+   Здесь находятся только стили страницы прогнозирования.
+   ========================================================= */
+
+.predict-page {
+    --predict-accent: #19D3C5;
+    --predict-ink: #111111;
+    --predict-muted: #626262;
+    --predict-surface: #F5F5F0;
+    --predict-border: 2px solid var(--predict-ink);
+    --predict-shadow: 5px 5px 0 var(--predict-ink);
+}
+
+.predict-page [hidden] {
+    display: none !important;
+}
+
+.predict-container {
+    padding-bottom: 24px;
+}
+
+/* Intro */
+
+.predict-intro {
+    position: relative;
+}
+
+.predict-intro .intro-copy {
+    max-width: 900px;
+}
+
+.predict-intro .intro-copy p {
+    max-width: 680px;
+}
+
+/* Section headings */
+
+.predict-mode-section,
+.predict-section {
+    margin-top: 52px;
+}
+
+.predict-mode-section .section-heading,
+.predict-section > .section-heading,
+.batch-result-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.predict-mode-section .section-heading h2,
+.predict-section > .section-heading h2 {
+    margin: 8px 0 0;
+    font-size: clamp(25px, 3vw, 38px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1.4px;
+}
+
+.predict-mode-section .section-heading > p,
+.predict-section > .section-heading > p {
+    margin: 0 0 4px;
+    color: var(--predict-muted);
+    font-size: 13px;
+}
+
+/* Mode selector */
+
+.predict-mode-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.predict-mode-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 245px;
+    padding: 26px;
+    border: var(--predict-border);
+    border-radius: 0;
+    background: #FFFFFF;
+    box-shadow: 5px 5px 0 var(--predict-ink);
+    color: var(--predict-ink);
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition:
+        transform 150ms ease,
+        box-shadow 150ms ease,
+        background-color 150ms ease;
+}
+
+.predict-mode-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--predict-ink);
+}
+
+.predict-mode-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--predict-ink);
+}
+
+.predict-mode-card.active {
+    background: var(--predict-accent);
+}
+
+.predict-mode-card:focus-visible,
+.predict-page button:focus-visible,
+.predict-page input:focus-visible {
+    outline: 3px solid var(--predict-accent);
+    outline-offset: 4px;
+}
+
+.mode-index,
+.panel-kicker,
+.stat-code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+}
+
+.mode-index {
+    padding: 6px 8px;
+    border: 1px solid currentColor;
+}
+
+.mode-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin: 20px 0 14px;
+    border: var(--predict-border);
+    background: #FFFFFF;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.mode-title {
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+}
+
+.mode-description {
+    max-width: 440px;
+    margin-top: 9px;
+    color: #3F3F3F;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.mode-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 22px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+}
+
+.mode-action span {
+    font-size: 20px;
+}
+
+/* Main panels */
+
+.predict-panel {
+    padding: clamp(20px, 3.2vw, 38px);
+    border: var(--predict-border);
+    border-radius: 0;
+    background: #FFFFFF;
+    box-shadow: var(--predict-shadow);
+}
+
+.predict-panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D6D6D0;
+}
+
+.panel-kicker {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--predict-muted);
+}
+
+.predict-panel-heading h3 {
+    margin: 0;
+    font-size: clamp(21px, 2.4vw, 29px);
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.panel-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 2px solid var(--predict-ink);
+    background: var(--predict-accent);
+    color: var(--predict-ink);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* Prediction form */
+
+.prediction-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.predict-page .form-field {
+    min-width: 0;
+}
+
+.predict-page .form-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--predict-ink);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.predict-page .form-field input {
+    display: block;
+    width: 100%;
+    min-height: 49px;
+    padding: 12px 14px;
+    border: var(--predict-border);
+    border-radius: 0;
+    background: #FFFFFF;
+    color: var(--predict-ink);
+    font-family: "Space Grotesk", Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: none;
+    transition: background-color 150ms ease;
+}
+
+.predict-page .form-field input::placeholder {
+    color: #898989;
+}
+
+.predict-page .form-field input:focus {
+    border-color: var(--predict-ink);
+    background: #F0FFFD;
+    outline: 2px solid var(--predict-accent);
+    outline-offset: 2px;
+}
+
+.predict-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    width: 100%;
+    min-width: 0;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid #D6D6D0;
+    box-sizing: border-box;
+}
+
+.form-note {
+    flex: 1 1 240px;
+    min-width: 0;
+    max-width: 560px;
+    margin: 0;
+    color: var(--predict-muted);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.required-mark {
+    color: #C13D2D;
+    font-weight: 700;
+}
+
+/* Reuse the existing train-button style, with a predictable layout. */
+
+.predict-page .train-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-shrink: 0;
+    min-height: 49px;
+    padding: 13px 19px;
+    border: var(--predict-border);
+    border-radius: 0;
+    background: var(--predict-accent);
+    color: var(--predict-ink);
+    font-family: "Space Grotesk", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--predict-ink);
+    transition:
+        transform 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.predict-page .train-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--predict-ink);
+}
+
+.predict-page .train-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--predict-ink);
+}
+
+.predict-page .train-button span:last-child {
+    font-size: 19px;
+}
+
+/* Messages */
+
+.predict-page .message {
+    margin-top: 22px;
+    padding: 14px 16px;
+    border: var(--predict-border);
+    border-radius: 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.predict-page .message.error {
+    background: #FFF0EE;
+    color: #922D20;
+}
+
+.predict-page .message.success {
+    background: #E8FFF9;
+    color: #125B50;
+}
+
+/* Single prediction result */
+
+.predict-result {
+    margin-top: 34px;
+    padding: clamp(20px, 3.2vw, 38px);
+    border: var(--predict-border);
+    background: var(--predict-surface);
+    box-shadow: var(--predict-shadow);
+}
+
+.result-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D0D0C9;
+}
+
+.result-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--predict-accent);
+    border: 1px solid var(--predict-ink);
+}
+
+.result-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 35px;
+    padding: 30px 0;
+}
+
+.result-label {
+    display: block;
+    margin-bottom: 13px;
+    color: var(--predict-muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.probability-number {
+    margin-bottom: 18px;
+    font-size: clamp(44px, 7vw, 76px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -4px;
+}
+
+.probability-track {
+    width: 100%;
+    height: 18px;
+    overflow: hidden;
+    border: 2px solid var(--predict-ink);
+    background: #FFFFFF;
+}
+
+.probability-fill {
+    width: 0;
+    height: 100%;
+    background: var(--predict-accent);
+    border-right: 2px solid var(--predict-ink);
+    transition: width 300ms ease;
+}
+
+.result-prediction {
+    padding-left: 30px;
+    border-left: 1px solid #D0D0C9;
+}
+
+.prediction-value {
+    display: inline-block;
+    margin: 2px 0 23px;
+    padding: 10px 14px;
+    border: var(--predict-border);
+    background: var(--predict-accent);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.threshold-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid #D0D0C9;
+    font-size: 12px;
+}
+
+.threshold-box span {
+    color: var(--predict-muted);
+}
+
+.threshold-box strong {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+}
+
+.result-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 22px;
+    border-top: 1px solid #D0D0C9;
+}
+
+.result-bottom > span,
+.batch-footer > p {
+    color: var(--predict-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Batch upload */
+
+.batch-description {
+    max-width: 760px;
+    margin: -8px 0 24px;
+    color: var(--predict-muted);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.predict-page .upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 230px;
+    padding: 28px;
+    border: 2px dashed var(--predict-ink);
+    border-radius: 0;
+    background: var(--predict-surface);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.predict-page .upload-area:hover {
+    background: #E8FFFC;
+}
+
+.upload-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 15px;
+    border: var(--predict-border);
+    background: var(--predict-accent);
+    font-size: 31px;
+    font-weight: 500;
+}
+
+.upload-title {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.upload-subtitle {
+    margin-top: 8px;
+    color: var(--predict-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.upload-filename {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 16px;
+    padding: 7px 10px;
+    border: 1px solid var(--predict-ink);
+    background: #FFFFFF;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.predict-page #csvFile {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.file-hint {
+    margin: 12px 0 22px;
+    color: var(--predict-muted);
+    font-size: 12px;
+}
+
+.batch-format {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 17px;
+    border: 1px solid var(--predict-ink);
+    background: #FAFAF7;
+}
+
+.format-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    border: 1px solid var(--predict-ink);
+    background: var(--predict-accent);
+    font-weight: 700;
+}
+
+.batch-format strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.batch-format p {
+    margin: 0;
+    color: var(--predict-muted);
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+/* Batch result statistics */
+
+.batch-result {
+    margin-top: 38px;
+}
+
+.batch-result-heading {
+    margin-bottom: 22px;
+}
+
+.batch-result-heading h2 {
+    margin: 8px 0 0;
+    font-size: clamp(25px, 3vw, 38px);
+    letter-spacing: -1.4px;
+}
+
+.batch-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.batch-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    padding: 22px;
+    border: var(--predict-border);
+    background: #FFFFFF;
+    box-shadow: 4px 4px 0 var(--predict-ink);
+}
+
+.batch-stat.stat-success {
+    background: #E8FFF9;
+}
+
+.batch-stat.stat-failed {
+    background: #FFF0EE;
+}
+
+.stat-label {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.batch-stat strong {
+    margin-top: 13px;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.stat-code {
+    margin-top: auto;
+    padding-top: 15px;
+    color: var(--predict-muted);
+}
+
+.batch-id-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 15px 17px;
+    border: 1px solid var(--predict-ink);
+    background: var(--predict-surface);
+    font-size: 12px;
+}
+
+.batch-id-line > span {
+    color: var(--predict-muted);
+}
+
+.batch-id-line code {
+    max-width: 100%;
+    font-family: "JetBrains Mono", monospace;
+    overflow-wrap: anywhere;
+}
+
+.batch-notice {
+    margin: 18px 0;
+    color: var(--predict-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Batch results table */
+
+.batch-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: var(--predict-border);
+    background: #FFFFFF;
+}
+
+.batch-table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.batch-table th {
+    padding: 14px 15px;
+    border-right: 1px solid var(--predict-ink);
+    border-bottom: var(--predict-border);
+    background: var(--predict-accent);
+    color: var(--predict-ink);
+    text-align: left;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+}
+
+.batch-table th:last-child {
+    border-right: 0;
+}
+
+.batch-table td {
+    max-width: 320px;
+    padding: 13px 15px;
+    border-right: 1px solid #D6D6D0;
+    border-bottom: 1px solid #D6D6D0;
+    color: var(--predict-ink);
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+.batch-table td:last-child {
+    border-right: 0;
+}
+
+.batch-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.batch-table tbody tr:nth-child(even) {
+    background: #F7F7F3;
+}
+
+.batch-table tbody tr:hover {
+    background: #E8FFFC;
+}
+
+.batch-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Footer */
+
+.predict-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 75px;
+    padding: 20px 0;
+    border-top: 2px solid var(--predict-ink);
+    color: var(--predict-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+}
+
+.footer-separator {
+    margin: 0 5px;
+    color: var(--predict-ink);
+}
+
+/* Responsive */
+
+@media (max-width: 760px) {
+    .predict-mode-section,
+    .predict-section {
+        margin-top: 38px;
+    }
+
+    .predict-mode-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .predict-mode-card {
+        min-height: 220px;
+    }
+
+    .prediction-fields {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .predict-form-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .predict-form-footer .train-button {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .result-main {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .result-prediction {
+        padding: 22px 0 0;
+        border-top: 1px solid #D0D0C9;
+        border-left: 0;
+    }
+
+    .result-bottom,
+    .batch-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .batch-footer .train-button,
+    .result-bottom .train-button {
+        width: 100%;
+    }
+
+    .batch-stats {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .batch-stat {
+        min-height: 125px;
+    }
+
+    .predict-mode-section .section-heading,
+    .predict-section > .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .predict-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .predict-panel {
+        padding: 18px;
+    }
+
+    .predict-mode-card {
+        padding: 20px;
+    }
+
+    .predict-panel-heading {
+        align-items: flex-start;
+    }
+
+    .panel-tag {
+        font-size: 9px;
+    }
+
+    .probability-number {
+        letter-spacing: -2px;
+    }
+
+    .batch-id-line {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* Фикс расположения кнопки «Новый прогноз» */
+.predict-page .result-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.predict-page .result-bottom > span {
+    flex: 1 1 220px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.predict-page .result-bottom .train-button {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    box-sizing: border-box;
+    white-space: normal;
+}
+
+@media (max-width: 760px) {
+    .predict-page .result-bottom {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .predict-page .result-bottom .train-button {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+
+.batch-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 2px solid var(--train-ink, #111111);
+    background: #ffffff;
+}
+
+.batch-table {
+    width: 100%;
+    min-width: 760px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.batch-table th,
+.batch-table td {
+    padding: 12px;
+    border: 1px solid var(--train-ink, #111111);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.batch-table th {
+    background: var(--train-accent, #19D3C5);
+    color: var(--train-ink, #111111);
+    font-weight: 700;
+}
+
+.batch-table th:nth-child(1),
+.batch-table td:nth-child(1) {
+    width: 55px;
+}
+
+.batch-table th:nth-child(2),
+.batch-table td:nth-child(2) {
+    width: 35%;
+}
+
+.batch-table th:nth-child(3),
+.batch-table td:nth-child(3) {
+    width: 100px;
+}
+
+.batch-table th:nth-child(4),
+.batch-table td:nth-child(4) {
+    width: 120px;
+}
+
+.batch-table th:nth-child(5),
+.batch-table td:nth-child(5) {
+    width: 130px;
+}
+
+.batch-table .row-data {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+}
+
+.batch-table .status-success {
+    color: #176b43;
+    font-weight: 700;
+}
+
+.batch-table .status-failed {
+    color: #b42318;
+    font-weight: 700;
+}
+
+.predict-form-footer,
+.result-bottom,
+.batch-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: 0;
+}
+
+.predict-form-footer > *,
+.result-bottom > *,
+.batch-footer > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.predict-form-footer .form-note {
+    flex: 1 1 280px;
+    margin: 0;
+}
+
+.predict-form-footer button,
+.result-bottom button,
+.batch-footer button {
+    flex: 0 1 auto;
+    white-space: normal;
+}
+
+@media (max-width: 640px) {
+    .predict-form-footer,
+    .result-bottom,
+    .batch-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .predict-form-footer button,
+    .result-bottom button,
+    .batch-footer button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   BATCH RESULTS — улучшенная читаемость таблицы
+   Добавить в самый конец predict.css
+   ========================================================= */
+
+.predict-page .batch-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    max-height: 620px;
+    overflow: auto;
+    border: 2px solid var(--predict-ink);
+    background: #fff;
+    box-shadow: 4px 4px 0 var(--predict-ink);
+}
+
+/* Таблица */
+.predict-page .batch-table {
+    width: 100%;
+    min-width: 760px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* Заголовок остаётся видимым при прокрутке */
+.predict-page .batch-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 15px 14px;
+    border: 0;
+    border-right: 1px solid #111;
+    border-bottom: 2px solid #111;
+    background: var(--predict-accent);
+    color: #111;
+    text-align: left;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: .045em;
+    text-transform: uppercase;
+}
+
+.predict-page .batch-table thead th:last-child {
+    border-right: 0;
+}
+
+/* Размеры колонок */
+.predict-page .batch-table th:nth-child(1),
+.predict-page .batch-table td:nth-child(1) {
+    width: 58px;
+    text-align: center;
+}
+
+.predict-page .batch-table th:nth-child(2),
+.predict-page .batch-table td:nth-child(2) {
+    width: 42%;
+}
+
+.predict-page .batch-table th:nth-child(3),
+.predict-page .batch-table td:nth-child(3) {
+    width: 105px;
+}
+
+.predict-page .batch-table th:nth-child(4),
+.predict-page .batch-table td:nth-child(4) {
+    width: 125px;
+}
+
+.predict-page .batch-table th:nth-child(5),
+.predict-page .batch-table td:nth-child(5) {
+    width: 115px;
+}
+
+/* Ячейки */
+.predict-page .batch-table tbody td {
+    padding: 16px 14px;
+    border: 0;
+    border-right: 1px solid #E1E1DA;
+    border-bottom: 1px solid #E1E1DA;
+    color: #242424;
+    background: transparent;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.predict-page .batch-table tbody td:last-child {
+    border-right: 0;
+}
+
+.predict-page .batch-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Спокойное чередование строк */
+.predict-page .batch-table tbody tr:nth-child(odd) {
+    background: #FFFFFF;
+}
+
+.predict-page .batch-table tbody tr:nth-child(even) {
+    background: #F5F5F0;
+}
+
+.predict-page .batch-table tbody tr:hover {
+    background: #E8FFFC;
+}
+
+/* Номер строки */
+.predict-page .batch-table tbody td:first-child {
+    color: #737373;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Данные пользователя */
+.predict-page .batch-table .row-data {
+    color: #414141;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Прогноз */
+.predict-page .batch-table tbody td:nth-child(3) {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Вероятность */
+.predict-page .batch-table tbody td:nth-child(4) {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Статус */
+.predict-page .batch-table .status-success,
+.predict-page .batch-table .status-failed {
+    display: inline-block;
+    padding: 5px 8px;
+    border: 1px solid currentColor;
+    font-size: 11px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.predict-page .batch-table .status-success {
+    color: #176B43;
+    background: #E8FFF2;
+}
+
+.predict-page .batch-table .status-failed {
+    color: #B42318;
+    background: #FFF0EE;
+}
+
+/* Прокрутка и адаптация */
+@media (max-width: 760px) {
+    .predict-page .batch-table-wrap {
+        max-height: 520px;
+        box-shadow: 3px 3px 0 var(--predict-ink);
+    }
+
+    .predict-page .batch-table {
+        min-width: 760px;
+    }
+
+    .predict-page .batch-table tbody td {
+        padding: 12px 10px;
+    }
+}
+
+/* =========================================================
+   BATCH RESULT CARDS
+   ========================================================= */
+
+.predict-page .batch-results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+.predict-page .batch-record-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 2px solid var(--predict-ink);
+    background: #FFFFFF;
+    box-shadow: 4px 4px 0 var(--predict-ink);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.predict-page .batch-record-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--predict-ink);
+}
+
+/* Верхняя полоса карточки */
+
+.predict-page .batch-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 2px solid var(--predict-ink);
+    background: var(--predict-accent);
+}
+
+.predict-page .batch-card-number {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.predict-page .batch-card-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 32px;
+    padding: 4px 7px;
+    border: 1px solid var(--predict-ink);
+    background: #FFFFFF;
+}
+
+.predict-page .batch-card-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border: 1px solid var(--predict-ink);
+    background: #FFFFFF;
+    color: #176B43;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.predict-page .batch-card-status.failed {
+    background: #FFF0EE;
+    color: #B42318;
+}
+
+/* Характеристики пользователя */
+
+.predict-page .batch-card-body {
+    padding: 18px;
+}
+
+.predict-page .batch-card-section-title {
+    margin: 0 0 13px;
+    color: var(--predict-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.predict-page .batch-card-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.predict-page .batch-card-field {
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #DEDED7;
+    background: #F7F7F3;
+}
+
+.predict-page .batch-card-field-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #666666;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.predict-page .batch-card-field-value {
+    display: block;
+    color: var(--predict-ink);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.predict-page .batch-card-empty {
+    padding: 14px;
+    border: 1px dashed #B8B8B0;
+    color: var(--predict-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Результат модели */
+
+.predict-page .batch-card-result {
+    margin-top: 18px;
+    padding-top: 17px;
+    border-top: 1px solid #D6D6D0;
+}
+
+.predict-page .batch-card-result-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.predict-page .batch-card-prediction-label,
+.predict-page .batch-card-probability-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--predict-muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.predict-page .batch-card-prediction {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 2px solid var(--predict-ink);
+    background: var(--predict-accent);
+    color: var(--predict-ink);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.predict-page .batch-card-probability {
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(21px, 2.4vw, 28px);
+    font-weight: 700;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.predict-page .batch-card-progress {
+    width: 100%;
+    height: 10px;
+    overflow: hidden;
+    border: 1px solid var(--predict-ink);
+    background: #F0F0EA;
+}
+
+.predict-page .batch-card-progress-fill {
+    height: 100%;
+    background: var(--predict-accent);
+    transition: width 250ms ease;
+}
+
+/* Ошибки */
+
+.predict-page .batch-card-error {
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px solid #B42318;
+    background: #FFF0EE;
+    color: #922D20;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Адаптация */
+
+@media (max-width: 900px) {
+    .predict-page .batch-results-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .predict-page .batch-card-header,
+    .predict-page .batch-card-body {
+        padding: 14px;
+    }
+
+    .predict-page .batch-card-fields {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .predict-page .batch-card-field {
+        padding: 9px;
+    }
+
+    .predict-page .batch-card-field-value {
+        font-size: 12px;
+    }
+}

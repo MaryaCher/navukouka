@@ -1,0 +1,13 @@
+.venv/
+**pycache**/
+*.pyc
+
+.idea/
+
+.env
+
+models/*
+!models/.gitkeep
+
+data/*
+!data/.gitkeep

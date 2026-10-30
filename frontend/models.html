@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Мои модели — Navukouka</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/templatemo-axis-industrial.css">
+    <link rel="stylesheet" href="css/train.css">
+    <link rel="stylesheet" href="css/models.css">
+
+    <script src="js/models.js" defer></script>
+</head>
+
+<body class="train-page models-page">
+
+<header class="train-header">
+    <a class="train-logo" href="index.html">
+        <span class="train-logo-mark">N</span>
+        NAVUKOUKA
+    </a>
+
+    <nav class="train-nav">
+        <a href="index.html">Главная</a>
+        <a href="train.html">Обучение модели</a>
+        <a href="predict.html">Прогнозирование</a>
+        <a href="models.html" class="active">Мои модели</a>
+        <a href="history.html">История прогнозов</a>
+        <a href="analytics.html">Аналитика</a>
+
+        <button
+            type="button"
+            id="logoutButton"
+            class="logout-button"
+            hidden
+        >
+            Выйти
+        </button>
+        <a href="login.html" id="authLink">Войти</a>
+    </nav>
+</header>
+
+<main class="train-container models-container">
+
+    <section class="train-intro models-intro">
+        <div>
+            <p class="eyebrow">NAVUKOUKA / MODEL REGISTRY</p>
+            <h1>Мои <span>модели.</span></h1>
+            <p class="intro-description">
+                Все твои зарегистрированные версии моделей машинного обучения
+                в одном месте. Просматривай метрики, целевые столбцы,
+                статусы и даты создания.
+            </p>
+        </div>
+
+        <div class="intro-number" aria-hidden="true">03</div>
+    </section>
+
+    <section class="models-toolbar">
+        <div>
+            <p class="eyebrow">YOUR WORKSPACE</p>
+            <h2>Реестр моделей</h2>
+            <p id="modelsDescription">
+                Загружаем твои модели...
+            </p>
+        </div>
+
+        <button
+            id="refreshModels"
+            class="models-refresh-button"
+            type="button"
+        >
+            <span aria-hidden="true">↻</span>
+            Обновить список
+        </button>
+    </section>
+
+    <section class="models-stats" aria-label="Статистика моделей">
+        <article class="models-stat-card">
+            <span class="models-stat-label">Всего моделей</span>
+            <strong id="totalModels">—</strong>
+            <span class="models-stat-caption">В твоём реестре</span>
+        </article>
+
+        <article class="models-stat-card">
+            <span class="models-stat-label">Готовые модели</span>
+            <strong id="readyModels">—</strong>
+            <span class="models-stat-caption">По статусу backend</span>
+        </article>
+
+        <article class="models-stat-card">
+            <span class="models-stat-label">Последнее создание</span>
+            <strong id="latestModelDate">—</strong>
+            <span class="models-stat-caption">Самая новая запись</span>
+        </article>
+    </section>
+
+    <div
+        id="modelsMessage"
+        class="models-notice"
+        role="status"
+        aria-live="polite"
+    >
+        Загружаем список моделей...
+    </div>
+
+    <section
+        id="modelsList"
+        class="models-grid"
+        aria-label="Список обученных моделей"
+    ></section>
+
+    <section id="emptyState" class="models-empty" hidden>
+        <div class="models-empty-icon" aria-hidden="true">∅</div>
+        <h2>Здесь пока пусто.</h2>
+        <p>
+            Ты ещё не зарегистрировал ни одной модели.
+            Загрузи обучающие данные и создай первую модель.
+        </p>
+        <a class="models-primary-link" href="train.html">
+            Перейти к обучению <span aria-hidden="true">↗</span>
+        </a>
+    </section>
+
+    <footer class="train-footer">
+        <span>NAVUKOUKA / MACHINE LEARNING</span>
+        <a href="train.html">Обучить новую модель ↗</a>
+    </footer>
+
+</main>
+
+</body>
+</html>

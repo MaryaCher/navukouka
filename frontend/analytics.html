@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналитика — NAVUKOUKA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/templatemo-axis-industrial.css">
+    <link rel="stylesheet" href="css/train.css">
+    <link rel="stylesheet" href="css/predict.css">
+    <link rel="stylesheet" href="css/analytics.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="js/analytics.js" defer></script>
+</head>
+
+<body class="train-page predict-page analytics-page">
+
+<header class="train-header">
+    <a class="train-logo" href="index.html">
+        <span class="train-logo-mark">N</span>
+        NAVUKOUKA
+    </a>
+
+    <nav class="train-nav">
+        <a href="index.html">Главная</a>
+        <a href="train.html">Обучение модели</a>
+        <a href="predict.html">Прогнозирование</a>
+        <a href="models.html">Мои модели</a>
+        <a href="history.html">История прогнозов</a>
+        <a href="analytics.html" class="active">Аналитика</a>
+        <button id="logoutButton" class="logout-button" type="button">Выйти</button>
+        <a href="login.html" id="authLink">Войти</a>
+    </nav>
+</header>
+
+<main class="train-container predict-container analytics-container">
+
+    <!-- HERO -->
+    <section class="train-intro predict-intro analytics-intro">
+        <div class="intro-copy">
+            <div class="eyebrow">
+                <span class="status-dot"></span>
+                АНАЛИЗ АУДИТОРИИ
+            </div>
+            <h1>
+                Аналитика<br>
+                <span>аудитории и прогнозов.</span>
+            </h1>
+            <p>
+                Понимайте, кто ваша аудитория, какие сегменты склонны
+                к целевому действию и на кого направить усилия.
+            </p>
+        </div>
+        <div class="intro-number" aria-hidden="true">05</div>
+    </section>
+
+    <!-- 01 / МОДЕЛЬ -->
+    <section class="analytics-control-section">
+        <div class="section-heading">
+            <div>
+                <span class="step-number">01 / ИСТОЧНИК</span>
+                <h2>Выберите модель</h2>
+            </div>
+            <p>Данные и прогнозы выбранной модели</p>
+        </div>
+
+        <div class="predict-panel analytics-control-panel">
+            <div class="analytics-control-copy">
+                <span class="panel-kicker">DATA SOURCE</span>
+                <h3>Источник данных</h3>
+                <p id="modelStatusText">Загрузка доступных моделей...</p>
+            </div>
+
+            <div class="analytics-model-control">
+                <label for="modelSelect">Модель</label>
+                <select id="modelSelect">
+                    <option value="">Загрузка...</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="analyticsError" class="message error" hidden></div>
+    </section>
+
+    <!-- 02 / РЕЖИМ -->
+    <section class="analytics-mode-section">
+        <div class="section-heading">
+            <div>
+                <span class="step-number">02 / РЕЖИМ</span>
+                <h2>Что вы хотите посмотреть</h2>
+            </div>
+            <p>Вся информация или отдельно данные и прогнозы</p>
+        </div>
+
+        <div class="predict-mode-grid analytics-mode-grid">
+            <button class="predict-mode-card analytics-mode-card active" type="button" data-mode="all">
+                <span class="mode-index">MODE_01</span>
+                <span class="mode-icon" aria-hidden="true">◉</span>
+                <span class="mode-title">Всё сразу</span>
+                <span class="mode-description">Исторические данные и результаты прогнозов в одном представлении</span>
+                <span class="mode-action">Смотреть <span>→</span></span>
+            </button>
+
+            <button class="predict-mode-card analytics-mode-card" type="button" data-mode="historical">
+                <span class="mode-index">MODE_02</span>
+                <span class="mode-icon" aria-hidden="true">▤</span>
+                <span class="mode-title">Исторические</span>
+                <span class="mode-description">Только данные, на которых обучалась модель</span>
+                <span class="mode-action">Смотреть <span>→</span></span>
+            </button>
+
+            <button class="predict-mode-card analytics-mode-card" type="button" data-mode="predictions">
+                <span class="mode-index">MODE_03</span>
+                <span class="mode-icon" aria-hidden="true">↗</span>
+                <span class="mode-title">Прогнозные</span>
+                <span class="mode-description">Только сохранённые результаты прогнозов</span>
+                <span class="mode-action">Смотреть <span>→</span></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <div id="analyticsDashboard" class="analytics-dashboard" hidden>
+
+        <!-- 03 / ПОРТРЕТ АУДИТОРИИ -->
+        <section id="overviewSection" class="analytics-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">03 / ПОРТРЕТ</span>
+                    <h2>Кто ваша аудитория</h2>
+                </div>
+                <p id="overviewDescription">Общая картина по выбранным данным</p>
+            </div>
+
+            <div class="analytics-metric-grid">
+                <article class="analytics-metric-card">
+                    <div class="analytics-metric-label">ВСЕГО ПОЛЬЗОВАТЕЛЕЙ</div>
+                    <div id="metricRows" class="analytics-metric-value">—</div>
+                    <div class="analytics-metric-help">записей в исторических данных</div>
+                </article>
+
+                <article class="analytics-metric-card">
+                    <div class="analytics-metric-label">ДОЛЯ ЦЕЛЕВОГО ДЕЙСТВИЯ</div>
+                    <div id="metricConversion" class="analytics-metric-value">—</div>
+                    <div class="analytics-metric-help">совершили действие в исторических данных</div>
+                </article>
+
+                <article class="analytics-metric-card">
+                    <div class="analytics-metric-label">ПРОГНОЗОВ СДЕЛАНО</div>
+                    <div id="metricPredictions" class="analytics-metric-value">—</div>
+                    <div class="analytics-metric-help">сохранённых результатов</div>
+                </article>
+
+                <article class="analytics-metric-card">
+                    <div class="analytics-metric-label">ТОП-20 % ПРОГНОЗА</div>
+                    <div id="metricTopShare" class="analytics-metric-value">—</div>
+                    <div class="analytics-metric-help">доля будущих действий в топ-20 % пользователей</div>
+                </article>
+            </div>
+
+            <div class="analytics-chart-grid">
+                <article class="analytics-chart-card">
+                    <div class="analytics-chart-heading">
+                        <span class="chart-kicker">ИСТОРИЧЕСКИЕ ДАННЫЕ</span>
+                        <h3>Как распределены результаты</h3>
+                        <p>Сколько пользователей совершили целевое действие, а сколько — нет.</p>
+                    </div>
+                    <div class="analytics-chart-container">
+                        <canvas id="targetChart"></canvas>
+                    </div>
+                </article>
+
+                <article id="overviewPredictionChartCard" class="analytics-chart-card">
+                    <div class="analytics-chart-heading">
+                        <span class="chart-kicker">ПРОГНОЗЫ</span>
+                        <h3>Насколько уверена модель</h3>
+                        <p>Распределение прогнозных вероятностей по всем сохранённым прогнозам.</p>
+                    </div>
+                    <div class="analytics-chart-container">
+                        <canvas id="overviewProbabilityChart"></canvas>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 04 / КОНВЕРСИЯ ПО ПРИЗНАКАМ -->
+        <section id="conversionSection" class="analytics-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">04 / КОНВЕРСИЯ</span>
+                    <h2>Кто склонен к целевому действию</h2>
+                </div>
+                <p>Доля совершивших действие по каждой группе</p>
+            </div>
+
+            <div class="predict-panel analytics-feature-panel">
+                <div class="analytics-feature-selector">
+                    <label for="featureSelect">Выберите характеристику</label>
+                    <select id="featureSelect">
+                        <option value="">Выберите признак</option>
+                    </select>
+                    <div id="featureDescription" class="feature-description">
+                        Выберите характеристику, чтобы увидеть конверсию по группам.
+                    </div>
+                </div>
+
+                <div class="analytics-feature-stats">
+                    <div class="feature-stat">
+                        <span>Групп</span>
+                        <strong id="featureGroups">—</strong>
+                    </div>
+                    <div class="feature-stat">
+                        <span>Лучшая группа</span>
+                        <strong id="featureBestGroup">—</strong>
+                    </div>
+                    <div class="feature-stat">
+                        <span>Конверсия в ней</span>
+                        <strong id="featureBestConversion">—</strong>
+                    </div>
+                    <div class="feature-stat">
+                        <span>Средняя конверсия</span>
+                        <strong id="featureAverageConversion">—</strong>
+                    </div>
+                </div>
+            </div>
+
+            <article class="analytics-chart-card">
+                <div class="analytics-chart-heading">
+                    <span class="chart-kicker">КОНВЕРСИЯ ПО ГРУППАМ</span>
+                    <h3 id="featureChartTitle">Доля совершивших целевое действие</h3>
+                    <p id="featureChartDescription">Чем выше столбец, тем чаще группа совершает целевое действие.</p>
+                </div>
+                <div class="analytics-chart-container">
+                    <canvas id="featureChart"></canvas>
+                </div>
+            </article>
+        </section>
+
+        <!-- 05 / СЕГМЕНТЫ -->
+        <section id="segmentsSection" class="analytics-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">05 / СЕГМЕНТЫ</span>
+                    <h2>На кого направить усилия</h2>
+                </div>
+                <p>Сегменты с высокой средней вероятностью</p>
+            </div>
+
+            <div class="analytics-table-card">
+                <div class="analytics-table-heading">
+                    <span class="chart-kicker">ТОП-5 СЕГМЕНТОВ</span>
+                    <h3>Комбинации признаков с высокой средней вероятностью</h3>
+                    <p>Учитывайте не только вероятность, но и размер сегмента: маленький сегмент может быть невыгоден.</p>
+                </div>
+                <div class="analytics-table-wrap">
+                    <table class="analytics-table">
+                        <thead>
+                            <tr>
+                                <th>Сегмент</th>
+                                <th>Размер</th>
+                                <th>Доля базы</th>
+                                <th>Средняя вероятность</th>
+                            </tr>
+                        </thead>
+                        <tbody id="segmentTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="segmentEmpty" class="analytics-empty-panel" hidden>
+                <div class="analytics-empty-number">00</div>
+                <div>
+                    <h3>Недостаточно прогнозов для сегментации</h3>
+                    <p>Сегменты появятся после выполнения пакетного прогнозирования.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 / ПРОВЕРКА НА ФАКТЕ -->
+        <section id="calibrationSection" class="analytics-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">06 / ПРОВЕРКА</span>
+                    <h2>Насколько прогноз соответствует факту</h2>
+                </div>
+                <p>Фактическая конверсия по децилям прогноза</p>
+            </div>
+
+            <article class="analytics-chart-card">
+                <div class="analytics-chart-heading">
+                    <span class="chart-kicker">КОНВЕРСИЯ ПО ДЕЦИЛЯМ</span>
+                    <h3>Доля совершивших действие в каждой группе прогноза</h3>
+                    <p>Если столбцы растут слева направо — модель работает: чем выше прогноз, тем чаще действие совершается на самом деле.</p>
+                </div>
+                <div class="analytics-chart-container">
+                    <canvas id="calibrationChart"></canvas>
+                </div>
+            </article>
+        </section>
+
+        <!-- 07 / ВЫВОДЫ -->
+        <section id="insightsSection" class="analytics-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">07 / ВЫВОДЫ</span>
+                    <h2>Что можно понять из данных</h2>
+                </div>
+                <p>Автоматические наблюдения для принятия решений</p>
+            </div>
+            <div id="insightsList" class="analytics-insights-list"></div>
+        </section>
+
+        <!-- ТЕХНИЧЕСКАЯ ИНФОРМАЦИЯ -->
+        <section class="analytics-section">
+            <details class="analytics-details">
+                <summary>
+                    <span class="step-number">ТЕХНИЧЕСКАЯ ИНФОРМАЦИЯ</span>
+                    <span>Типы данных, пропуски и распределения</span>
+                </summary>
+
+                <div class="analytics-details-body">
+                    <article class="analytics-chart-card">
+                        <div class="analytics-chart-heading">
+                            <span class="chart-kicker">КАЧЕСТВО ДАННЫХ</span>
+                            <h3>Пропущенные значения по признакам</h3>
+                            <p>Показывает, в каких характеристиках не хватает информации.</p>
+                        </div>
+                        <div class="analytics-chart-container">
+                            <canvas id="missingChart"></canvas>
+                        </div>
+                    </article>
+
+                    <div class="analytics-table-card">
+                        <div class="analytics-table-heading">
+                            <span class="chart-kicker">СОСТАВ ДАННЫХ</span>
+                            <h3>Характеристики обучающего датасета</h3>
+                            <p>Типы полей и степень заполненности.</p>
+                        </div>
+                        <div class="analytics-table-wrap">
+                            <table class="analytics-table">
+                                <thead>
+                                    <tr>
+                                        <th>Характеристика</th>
+                                        <th>Тип данных</th>
+                                        <th>Заполнено</th>
+                                        <th>Пропущено</th>
+                                        <th>Разных значений</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="featureTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+    </div>
+
+    <!-- LOADING -->
+    <div id="analyticsLoading" class="analytics-loading">
+        <div class="analytics-loading-line"></div>
+        <span>Загрузка аналитики...</span>
+    </div>
+
+    <!-- EMPTY -->
+    <div id="analyticsEmpty" class="analytics-empty-panel" hidden>
+        <div class="analytics-empty-number">00</div>
+        <div>
+            <h3>Нет доступных моделей</h3>
+            <p>Сначала обучите хотя бы одну модель — после этого здесь появится аналитика её данных и прогнозов.</p>
+        </div>
+    </div>
+
+    <footer class="predict-footer">
+        <span>NAVUKOUKA <span class="footer-separator">/</span> ANALYTICS</span>
+        <span>АУДИТОРИЯ · ПРОГНОЗЫ · 2026</span>
+    </footer>
+
+</main>
+
+</body>
+</html>

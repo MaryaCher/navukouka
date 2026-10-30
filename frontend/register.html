@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Регистрация — navukouka</title>
+    <meta name="description" content="Создание аккаунта в navukouka Predictive Analytics.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="css/templatemo-axis-industrial.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <script src="js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+
+    <header class="auth-header">
+        <a class="auth-logo" href="index.html">
+            <span class="auth-logo-mark">+</span>
+            navukouka
+        </a>
+        <span class="auth-product">PREDICTIVE ANALYTICS</span>
+        <a class="auth-home" href="index.html">На главную ↗</a>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-panel">
+            <div class="auth-eyebrow">
+                <span class="auth-dot"></span>
+                СОЗДАНИЕ АККАУНТА / 01
+            </div>
+
+            <h1>Начни с <span>данных.</span></h1>
+
+            <p class="auth-description">
+                Создай аккаунт, чтобы перейти к работе с моделями
+                машинного обучения и прогнозированию.
+            </p>
+
+            <form id="registerForm" class="auth-form" novalidate>
+                <label for="username">Имя пользователя</label>
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Например, analyst01"
+                    minlength="3"
+                    maxlength="100"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="password">Пароль</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Не менее 8 символов"
+                    minlength="8"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <label for="passwordConfirm">Повтори пароль</label>
+                <input
+                    id="passwordConfirm"
+                    name="passwordConfirm"
+                    type="password"
+                    placeholder="Введи пароль ещё раз"
+                    minlength="8"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <p id="authMessage" class="auth-message"
+                   role="alert" aria-live="polite"></p>
+
+                <button class="auth-submit" type="submit">
+                    Создать аккаунт <span>→</span>
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                Уже есть аккаунт?
+                <a href="login.html">Войти в систему</a>
+            </div>
+        </section>
+
+        <aside class="auth-aside">
+            <span class="aside-index">NAVUKOUKA / 001</span>
+            <div class="aside-graphic" aria-hidden="true">
+                <div class="graphic-ring ring-one"></div>
+                <div class="graphic-ring ring-two"></div>
+                <div class="graphic-core">N+</div>
+                <span class="graphic-label label-one">DATA</span>
+                <span class="graphic-label label-two">MODEL</span>
+                <span class="graphic-label label-three">PREDICT</span>
+            </div>
+            <h2>От данных<br>к решению.</h2>
+            <p>Единая среда для обучения моделей и прогнозирования целевых действий.</p>
+            <div class="aside-footer">
+                <span>AUTH / REGISTER</span>
+                <span>2026 © NAVUKOUKA</span>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="auth-footer">
+        <span>navukouka — Predictive Analytics System</span>
+        <span>DATA → MODEL → PREDICTION</span>
+    </footer>
+
+</body>
+</html>

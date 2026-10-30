@@ -1,0 +1,4 @@
+[run]
+omit =
+    app/db/check_db.py
+    app/db/init_db.py

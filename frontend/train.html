@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучение модели — Navukouka</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/templatemo-axis-industrial.css">
+    <link rel="stylesheet" href="css/train.css">
+
+    <script src="js/train.js" defer></script>
+</head>
+<body class="train-page">
+
+<header class="train-header">
+    <a class="train-logo" href="index.html">
+        <span class="train-logo-mark">N</span>
+        NAVUKOUKA
+    </a>
+
+    <nav class="train-nav">
+        <a href="index.html">Главная</a>
+        <a href="train.html" class="active">Обучение модели</a>
+
+        <a href="predict.html">Прогнозирование</a>
+        <a href="models.html">Мои модели</a>
+        <a href="history.html">История прогнозов</a>
+        <a href="analytics.html">Аналитика</a>
+        <button type="button" id="logoutButton" class="logout-button" hidden>
+            Выйти
+        </button>
+        <a href="login.html" id="authLink">Войти</a>
+    </nav>
+</header>
+
+<main class="train-container">
+
+    <section class="train-intro">
+        <div>
+            <p class="eyebrow">NAVUKOUKA / ML WORKSPACE</p>
+            <h1>Обучение <span>модели.</span></h1>
+            <p class="intro-description">
+                Загрузи исторические данные, укажи целевой столбец
+                и запусти обучение модели машинного обучения.
+            </p>
+        </div>
+
+        <div class="intro-number" aria-hidden="true">01</div>
+    </section>
+
+    <section class="train-layout">
+
+        <div class="train-main-column">
+
+            <section class="train-card">
+                <div class="section-heading">
+                    <span class="step-number">01</span>
+                    <div>
+                        <h2>Обучающие данные</h2>
+                        <p>Выбери CSV-файл со своими данными.</p>
+                    </div>
+                </div>
+
+                <form id="trainingForm">
+                    <label class="upload-area" for="csvFile">
+                        <span class="upload-icon">↑</span>
+                        <strong id="uploadTitle">Выбери CSV-файл</strong>
+                        <span id="uploadDescription">
+                            Нажми, чтобы выбрать файл на компьютере
+                        </span>
+                        <span class="upload-hint">Формат CSV · Максимум 20 МБ</span>
+                    </label>
+
+                    <input
+                        id="csvFile"
+                        name="file"
+                        type="file"
+                        accept=".csv,text/csv"
+                        required
+                    >
+
+                    <div id="fileInfo" class="file-info" hidden></div>
+
+                    <div id="previewSection" class="preview-section" hidden>
+                        <h3>Предпросмотр данных</h3>
+                        <p id="previewDescription"></p>
+                        <div class="table-scroll">
+                            <table id="previewTable"></table>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="targetColumn">Целевой столбец</label>
+                        <input
+                            id="targetColumn"
+                            name="target_column"
+                            type="text"
+                            placeholder="Например, target"
+                            maxlength="200"
+                            required
+                        >
+                        <p class="field-hint">
+                            Укажи точное название столбца из CSV,
+                            значение которого должна предсказывать модель.
+                        </p>
+                    </div>
+
+                    <div id="trainMessage" class="message" role="status"
+                         aria-live="polite" hidden></div>
+
+                    <button id="trainButton" class="train-button" type="submit">
+                        <span id="trainButtonText">Обучить модель</span>
+                        <span aria-hidden="true">↗</span>
+                    </button>
+
+                    <p class="submit-hint">
+                        Обучение может занять некоторое время.
+                        Не закрывай страницу до получения ответа.
+                    </p>
+                </form>
+            </section>
+
+            <section id="resultSection" class="train-card result-card" hidden>
+                <div class="section-heading">
+                    <span class="step-number">02</span>
+                    <div>
+                        <h2>Результат обучения</h2>
+                        <p id="resultSubtitle">Ответ ML-сервиса</p>
+                    </div>
+                </div>
+
+                <div id="resultStatus" class="result-status"></div>
+                <div id="resultDetails" class="result-details"></div>
+
+                <div class="result-block">
+                    <h3>Метрики качества</h3>
+                    <div id="metricsGrid" class="metrics-grid"></div>
+                </div>
+
+                <div class="result-block">
+                    <h3>Важность признаков</h3>
+                    <div id="featuresList" class="features-list"></div>
+                </div>
+            </section>
+
+        </div>
+
+        <aside class="train-side-column">
+
+            <section class="side-card side-card-accent">
+                <p class="eyebrow">HOW IT WORKS</p>
+                <h2>От данных до модели.</h2>
+
+                <ol class="steps-list">
+                    <li>
+                        <span>01</span>
+                        <div>
+                            <strong>Загрузка</strong>
+                            <p>Выбери CSV с историческими данными.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>02</span>
+                        <div>
+                            <strong>Настройка</strong>
+                            <p>Укажи целевой столбец для обучения.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>03</span>
+                        <div>
+                            <strong>Обучение</strong>
+                            <p>Backend передаст данные ML-сервису.</p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="side-card models-card">
+                <div class="models-heading">
+                    <div>
+                        <p class="eyebrow">YOUR WORKSPACE</p>
+                        <h2>Мои модели</h2>
+                    </div>
+                    <button id="refreshModels" class="refresh-button"
+                            type="button" title="Обновить список">
+                        ↻
+                    </button>
+                </div>
+
+                <p id="modelsMessage" class="models-message">
+                    Загружаем список моделей...
+                </p>
+
+                <div id="modelsList" class="models-list"></div>
+            </section>
+
+        </aside>
+    </section>
+
+    <footer class="train-footer">
+        <span>NAVUKOUKA / MACHINE LEARNING</span>
+        <a href="index.html">Вернуться на главную ↗</a>
+    </footer>
+
+</main>
+
+</body>
+</html>

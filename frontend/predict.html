@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогнозирование — NAVUKOUKA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/templatemo-axis-industrial.css">
+    <link rel="stylesheet" href="css/train.css">
+    <link rel="stylesheet" href="css/predict.css">
+
+    <script src="js/predict.js" defer></script>
+</head>
+
+<body class="train-page predict-page">
+
+    <!-- Шапка в стиле страницы обучения -->
+    <header class="train-header">
+        <a class="train-logo" href="index.html">
+            <span class="train-logo-mark">N</span>
+            NAVUKOUKA
+        </a>
+
+        <nav class="train-nav">
+            <a href="index.html">Главная</a>
+            <a href="train.html">Обучение модели</a>
+            <a href="predict.html" class="active">Прогнозирование</a>
+            <a href="models.html">Мои модели</a>
+            <a href="history.html">История прогнозов</a>
+            <a href="analytics.html">Аналитика</a>
+            <button type="button" id="logoutButton" class="logout-button">
+                Выйти
+            </button>
+            <a href="login.html" id="authLink">Войти</a>
+        </nav>
+    </header>
+
+    <main class="train-container predict-container">
+
+        <!-- Заголовок страницы -->
+        <section class="train-intro predict-intro">
+            <div class="intro-copy">
+                <div class="eyebrow">
+                    <span class="status-dot"></span>
+                    ИНТЕЛЛЕКТУАЛЬНЫЙ АНАЛИЗ
+                </div>
+
+                <h1>
+                    Прогнозирование<br>
+                    <span>целевого действия.</span>
+                </h1>
+
+                <p>
+                    Получите прогноз для одного пользователя или обработайте
+                    сразу набор данных с помощью обученной модели машинного обучения.
+                </p>
+            </div>
+
+            <div class="intro-number" aria-hidden="true">02</div>
+        </section>
+
+        <!-- Переключение режимов -->
+        <section class="predict-mode-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">01 / РЕЖИМ</span>
+                    <h2>Выберите тип прогноза</h2>
+                </div>
+                <p>Один пользователь или целый файл</p>
+            </div>
+
+            <div class="predict-mode-grid">
+                <button
+                    type="button"
+                    id="singleModeButton"
+                    class="predict-mode-card active"
+                    aria-pressed="true"
+                >
+                    <span class="mode-index">MODE_01</span>
+                    <span class="mode-icon" aria-hidden="true">↗</span>
+                    <span class="mode-title">Одиночный прогноз</span>
+                    <span class="mode-description">
+                        Заполните характеристики пользователя и получите
+                        индивидуальный результат.
+                    </span>
+                    <span class="mode-action">Ввести данные <span>→</span></span>
+                </button>
+
+                <button
+                    type="button"
+                    id="batchModeButton"
+                    class="predict-mode-card"
+                    aria-pressed="false"
+                >
+                    <span class="mode-index">MODE_02</span>
+                    <span class="mode-icon" aria-hidden="true">▤</span>
+                    <span class="mode-title">Пакетный прогноз</span>
+                    <span class="mode-description">
+                        Загрузите CSV-файл, чтобы получить прогнозы
+                        сразу для нескольких пользователей.
+                    </span>
+                    <span class="mode-action">Загрузить CSV <span>→</span></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Одиночный прогноз -->
+        <section id="singleSection" class="predict-section">
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">02 / ДАННЫЕ</span>
+                    <h2>Данные пользователя</h2>
+                </div>
+                <p>Заполните все поля</p>
+            </div>
+
+            <div class="predict-panel">
+                <div class="predict-panel-heading">
+                    <div>
+                        <span class="panel-kicker">INDIVIDUAL ANALYSIS</span>
+                        <h3>Параметры для анализа</h3>
+                    </div>
+                    <span class="panel-tag">SINGLE</span>
+                </div>
+
+                <form id="predictForm">
+                    <div class="prediction-fields">
+
+                        <div class="form-field">
+                            <label for="age">Возраст</label>
+                            <input
+                                type="number"
+                                id="age"
+                                name="age"
+                                min="0"
+                                max="120"
+                                placeholder="Например, 32"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="income">Доход</label>
+                            <input
+                                type="number"
+                                id="income"
+                                name="income"
+                                min="0"
+                                step="any"
+                                placeholder="Например, 75000"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="education">Образование</label>
+                            <input
+                                type="text"
+                                id="education"
+                                name="education"
+                                placeholder="Например, Высшее"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="industry">Отрасль</label>
+                            <input
+                                type="text"
+                                id="industry"
+                                name="industry"
+                                placeholder="Например, IT"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="profession">Профессия</label>
+                            <input
+                                type="text"
+                                id="profession"
+                                name="profession"
+                                placeholder="Например, Аналитик"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="marital_status">Семейное положение</label>
+                            <input
+                                type="text"
+                                id="marital_status"
+                                name="marital_status"
+                                placeholder="Например, Женат / Замужем"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="gender">Пол</label>
+                            <input
+                                type="text"
+                                id="gender"
+                                name="gender"
+                                placeholder="Согласно данным модели"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="residence_type">Тип проживания</label>
+                            <input
+                                type="text"
+                                id="residence_type"
+                                name="residence_type"
+                                placeholder="Согласно данным модели"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="nationality">Гражданство</label>
+                            <input
+                                type="text"
+                                id="nationality"
+                                name="nationality"
+                                placeholder="Например, Россия"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="children_count">Количество детей</label>
+                            <input
+                                type="number"
+                                id="children_count"
+                                name="children_count"
+                                min="0"
+                                step="1"
+                                placeholder="Например, 1"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="predict-form-footer">
+                        <p class="form-note">
+                            <span class="required-mark">*</span>
+                            Значения категориальных полей должны соответствовать
+                            формату данных, на которых обучалась модель.
+                        </p>
+
+                        <button type="submit" id="predictButton" class="train-button">
+                            <span>Получить прогноз</span>
+                            <span aria-hidden="true">↗</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div id="singleError" class="message error" hidden></div>
+            </div>
+
+            <!-- Результат одиночного прогноза -->
+            <div id="singleResult" class="predict-result" hidden>
+                <div class="result-topline">
+                    <span class="step-number">03 / РЕЗУЛЬТАТ</span>
+                    <span class="result-status">
+                        <span class="status-dot"></span>
+                        АНАЛИЗ ЗАВЕРШЁН
+                    </span>
+                </div>
+
+                <div class="result-main">
+                    <div class="result-probability">
+                        <span class="result-label">Вероятность целевого действия</span>
+                        <div class="probability-number">
+                            <span id="probabilityValue">0%</span>
+                        </div>
+
+                        <div
+                            class="probability-track"
+                            role="progressbar"
+                            aria-label="Вероятность целевого действия"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                            id="probabilityTrack"
+                        >
+                            <div id="probabilityBar" class="probability-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="result-prediction">
+                        <span class="result-label">Решение модели</span>
+                        <div id="predictionValue" class="prediction-value">—</div>
+
+                        <div class="threshold-box">
+                            <span>Порог модели</span>
+                            <strong id="thresholdValue">—</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-bottom">
+                    <span>Результат сформирован на основе текущей модели.</span>
+                    <button type="button" id="newPredictionButton" class="train-button">
+                        Новый прогноз <span aria-hidden="true">↻</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Пакетный прогноз -->
+        <section id="batchSection" class="predict-section" hidden>
+            <div class="section-heading">
+                <div>
+                    <span class="step-number">02 / ЗАГРУЗКА</span>
+                    <h2>Пакетная обработка</h2>
+                </div>
+                <p>Входные данные в формате CSV</p>
+            </div>
+
+            <div class="predict-panel">
+                <div class="predict-panel-heading">
+                    <div>
+                        <span class="panel-kicker">BATCH PROCESSING</span>
+                        <h3>Загрузите файл с пользователями</h3>
+                    </div>
+                    <span class="panel-tag">CSV</span>
+                </div>
+
+                <p class="batch-description">
+                    Система обработает записи из файла и вернёт результат
+                    для каждой записи. Используйте названия столбцов,
+                    соответствующие признакам обученной модели.
+                </p>
+
+                <form id="batchForm">
+                    <label for="csvFile" class="upload-area">
+                        <span class="upload-symbol" aria-hidden="true">↑</span>
+                        <span class="upload-title">Выберите CSV-файл</span>
+                        <span class="upload-subtitle">
+                            Нажмите здесь, чтобы выбрать файл на компьютере
+                        </span>
+                        <span id="fileName" class="upload-filename">
+                            Файл не выбран
+                        </span>
+                        <input
+                            type="file"
+                            id="csvFile"
+                            name="file"
+                            accept=".csv,text/csv"
+                            required
+                        >
+                    </label>
+
+                    <p id="fileHint" class="file-hint">
+                        Формат: CSV. Максимальный размер: 20 МБ.
+                    </p>
+
+                    <div class="batch-format">
+                        <span class="format-icon" aria-hidden="true">i</span>
+                        <div>
+                            <strong>Важно перед загрузкой</strong>
+                            <p>
+                                CSV должен содержать необходимые признаки,
+                                например age, income, education, industry,
+                                profession, marital_status, gender,
+                                residence_type, nationality и children_count.
+                                Точный набор столбцов зависит от обученной модели.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="predict-form-footer">
+                        <p class="form-note">
+                            Проверьте названия и формат столбцов перед отправкой.
+                        </p>
+
+                        <button type="submit" id="batchButton" class="train-button">
+                            <span>Обработать файл</span>
+                            <span aria-hidden="true">↗</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div id="batchError" class="message error" hidden></div>
+            </div>
+
+            <!-- Результаты пакетной обработки -->
+            <div id="batchResult" class="batch-result" hidden>
+                <div class="section-heading batch-result-heading">
+                    <div>
+                        <span class="step-number">03 / РЕЗУЛЬТАТ</span>
+                        <h2>Итоги обработки</h2>
+                    </div>
+                    <span id="batchStatus" class="panel-tag">—</span>
+                </div>
+
+                <div class="batch-stats">
+                    <div class="batch-stat">
+                        <span class="stat-label">Всего записей</span>
+                        <strong id="batchTotal">0</strong>
+                        <span class="stat-code">TOTAL</span>
+                    </div>
+
+                    <div class="batch-stat stat-success">
+                        <span class="stat-label">Успешно обработано</span>
+                        <strong id="batchSuccessful">0</strong>
+                        <span class="stat-code">SUCCESS</span>
+                    </div>
+
+                    <div class="batch-stat stat-failed">
+                        <span class="stat-label">Ошибки</span>
+                        <strong id="batchFailed">0</strong>
+                        <span class="stat-code">FAILED</span>
+                    </div>
+                </div>
+
+                <div class="batch-id-line">
+                    <span>Идентификатор задания</span>
+                    <code id="batchId">—</code>
+                </div>
+
+                <p id="batchResultsNotice" class="batch-notice"></p>
+
+
+                <div id="batchResultsBody" class="batch-results-grid"></div>
+
+
+                <div class="batch-footer">
+                    <p>Показаны результаты, возвращённые сервером.</p>
+                    <button type="button" id="newBatchButton" class="train-button">
+                        Загрузить другой файл <span aria-hidden="true">↻</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="predict-footer">
+            <span>NAVUKOUKA <span class="footer-separator">/</span> ML SYSTEM</span>
+            <span>ПРОГНОЗИРОВАНИЕ · 2026</span>
+        </footer>
+
+    </main>
+</body>
+</html>
